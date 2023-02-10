@@ -1,5 +1,6 @@
 package com.facegram.facegrambackend.domain.user
 
+import com.facegram.facegrambackend.domain.analyze.Analysis
 import lombok.NoArgsConstructor
 import java.lang.IllegalArgumentException
 import javax.persistence.*
@@ -13,9 +14,12 @@ class User constructor(
     var id: Long? = null,
 
     @Column
-    var username: String
+    var username: String,
 
-) {
+    @OneToMany
+    var analysis: MutableList<Analysis>? = null,
+
+    ) {
     init{
         if(username.isBlank()){
             throw IllegalArgumentException("이름은 비어 있을 수 없습니다.")
@@ -29,12 +33,11 @@ class User constructor(
     companion object{
         fun newInstance(
             username: String,
-            id: Long? = null
+            id: Long? = null,
+            analysis: MutableList<Analysis>? = null
         ): User{
-            return User(id, username)
+            return User(id, username, analysis)
         }
     }
-
-
 
 }
