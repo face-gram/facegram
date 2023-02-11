@@ -76,7 +76,7 @@ class Analysis constructor(
     var image: String?,
 
 
-) {
+    ) {
     companion object{
         fun newInstance(
             id: Long? = null,
@@ -96,7 +96,7 @@ class Analysis constructor(
             gender: String,
             image: String? = null,
 
-        ): Analysis{
+            ): Analysis{
             return Analysis(id,
                 name,
                 user,

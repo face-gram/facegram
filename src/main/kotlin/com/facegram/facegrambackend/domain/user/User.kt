@@ -34,7 +34,7 @@ class User constructor(
         fun newInstance(
             username: String,
             id: Long? = null,
-            analysis: MutableList<Analysis>? = null
+            analysis: MutableList<Analysis> = mutableListOf()
         ): User{
             return User(id, username, analysis)
         }

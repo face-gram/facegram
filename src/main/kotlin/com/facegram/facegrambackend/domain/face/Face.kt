@@ -47,7 +47,7 @@ class Face constructor(
             cheek_type: String,
             cheek_size: String,
             analysis: Analysis,
-        ): Face{
+        ): Face {
             return Face(
                 id,
                 forehead_type,
