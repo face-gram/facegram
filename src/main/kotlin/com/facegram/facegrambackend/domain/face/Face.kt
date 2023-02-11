@@ -10,53 +10,61 @@ import javax.persistence.OneToOne
 
 @Entity
 class Face constructor(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @Column
-    val forehead_type: String,
+    val type: String,
 
     @Column
-    val forehead_size: String,
+    val size: String,
 
     @Column
-    val chin_type: String,
+    val foreheadType: String,
 
     @Column
-    val chin_size: String,
+    val foreheadSize: String?,
 
     @Column
-    val cheek_type: String,
+    val chinType: String?,
 
     @Column
-    val cheek_size: String,
+    val chinSize: String?,
+
+    @Column
+    val cheek: String?,
 
     @OneToOne(mappedBy = "face")
     val analysis: Analysis
+
 ) {
 
     companion object{
         fun newInstance(
             // 디폴트 파라미터
             id: Long? = null,
-            forehead_type: String,
-            forehead_size: String,
-            chin_type: String,
-            chin_size: String,
-            cheek_type: String,
-            cheek_size: String,
-            analysis: Analysis,
+            type: String,
+            size: String,
+            foreheadType: String,
+            foreheadSize: String? = null,
+            chinType: String? = null,
+            chinSize: String? = null,
+            cheek: String? = null,
+            analysis: Analysis
         ): Face {
             return Face(
                 id,
-                forehead_type,
-                forehead_size,
-                chin_type,
-                chin_size,
-                cheek_type,
-                cheek_size,
-                analysis)
+                type,
+                size,
+                foreheadType,
+                foreheadSize,
+                chinType,
+                chinSize,
+                cheek,
+                analysis
+            )
         }
     }
 }

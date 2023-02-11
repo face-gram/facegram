@@ -1,6 +1,7 @@
 package com.facegram.facegrambackend.domain.eyebrows
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
+import com.facegram.facegrambackend.domain.characteristic.Characteristic
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -22,16 +23,38 @@ class Eyebrows constructor(
     val deep: String,
 
     @Column
-    val length: String,
+    val length: String?,
 
     @Column
-    val thick: String,
+    val thick: String?,
 
     @Column
-    val glabella: String,
+    val glabella: String?,
 
     @OneToOne(mappedBy = "eyebrows")
     val analysis: Analysis
 
 ) {
+    companion object{
+        fun newInstance(
+            // 디폴트 파라미터
+            id: Long? = null,
+            type: String,
+            deep: String,
+            length: String? = null,
+            thick: String? = null,
+            glabella: String? = null,
+            analysis: Analysis
+        ): Eyebrows {
+            return Eyebrows(
+                id,
+                type,
+                deep,
+                length,
+                thick,
+                glabella,
+                analysis
+            )
+        }
+    }
 }

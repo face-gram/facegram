@@ -12,6 +12,13 @@ spring:
         show_sql: true
         format_sql: false
         default_batch_fetch_size: 1000
+
+
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location: classpath:
 #spring:
 #  datasource:
 #    url: 'jdbc:h2:mem:facegram'

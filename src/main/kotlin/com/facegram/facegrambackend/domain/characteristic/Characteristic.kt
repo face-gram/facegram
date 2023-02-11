@@ -1,6 +1,7 @@
 package com.facegram.facegrambackend.domain.characteristic
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
+import com.facegram.facegrambackend.domain.face.Face
 import javax.persistence.*
 
 
@@ -12,10 +13,10 @@ class Characteristic constructor(
     val id: Long? = null,
 
     @Column
-    val mustache: String?,
+    val mustache: String,
 
     @Column
-    val sideburns: String?,
+    val sideburns: String,
 
     @Column
     val dimple: String?,
@@ -38,4 +39,33 @@ class Characteristic constructor(
     @OneToOne(mappedBy = "characteristic")
     val analysis: Analysis
 ) {
+
+    companion object{
+        fun newInstance(
+            // 디폴트 파라미터
+            id: Long? = null,
+            mustache: String,
+            sideburns: String,
+            dimple: String? = null,
+            scar: String? = null,
+            mole: String? = null,
+            spots: String? = null,
+            tattoo: String? = null,
+            makeup: String? = null,
+            analysis: Analysis
+        ): Characteristic {
+            return Characteristic(
+                id,
+                mustache,
+                sideburns,
+                dimple,
+                scar,
+                mole,
+                spots,
+                tattoo,
+                makeup,
+                analysis
+            )
+        }
+    }
 }

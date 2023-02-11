@@ -1,5 +1,6 @@
 package com.facegram.facegrambackend.domain.analyze
 
+import com.facegram.facegrambackend.domain.BaseTimeEntity
 import com.facegram.facegrambackend.domain.characteristic.Characteristic
 import com.facegram.facegrambackend.domain.eye.Eye
 import com.facegram.facegrambackend.domain.eyebrows.Eyebrows
@@ -11,6 +12,8 @@ import com.facegram.facegrambackend.domain.nose.Nose
 import com.facegram.facegrambackend.domain.user.User
 import com.facegram.facegrambackend.domain.wrinkle.Wrinkle
 import lombok.NoArgsConstructor
+import org.jetbrains.annotations.NotNull
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -22,61 +25,61 @@ class Analysis constructor(
     val id: Long? = null,
 
     @Column
-    var name: String,
+    private var name: String,
 
     @ManyToOne
-    val user: User,
+    private val user: User,
 
     @OneToOne
     @JoinColumn(name = "face_id")
-    val face: Face,
+    private val face: Face,
 
     @OneToOne
     @JoinColumn(name = "hairstyle_id")
-    val hairstyle: Hairstyle,
+    private val hairstyle: Hairstyle,
 
     @OneToOne
     @JoinColumn(name = "eyebrows_id")
-    val eyebrows: Eyebrows,
+    private val eyebrows: Eyebrows,
 
     @OneToOne
     @JoinColumn(name = "eye_id")
-    val eye: Eye,
+    private val eye: Eye,
 
     @OneToOne
     @JoinColumn(name = "nose_id")
-    val nose: Nose,
+    private val nose: Nose,
 
     @OneToOne
     @JoinColumn(name = "mouth_id")
-    val mouth: Mouth,
+    private val mouth: Mouth,
 
     @OneToOne
     @JoinColumn(name = "wrinkle_id")
-    val wrinkle: Wrinkle,
+    private val wrinkle: Wrinkle,
 
     @OneToOne
     @JoinColumn(name = "characteristic_id")
-    val characteristic: Characteristic,
+    private val characteristic: Characteristic,
 
     @OneToOne
     @JoinColumn(name = "impression_id")
-    val impression: Impression,
+    private val impression: Impression,
 
     @Column
-    var description: String?,
+    private var description: String?,
 
     @Column
-    var age: Int,
+    private val age: Int,
 
     @Column
-    var gender: String,
+    private val gender: String,
 
     @Column
-    var image: String?,
+    private var image: String?,
 
 
-    ) {
+    ): BaseTimeEntity() {
     companion object{
         fun newInstance(
             id: Long? = null,
@@ -91,7 +94,7 @@ class Analysis constructor(
             wrinkle: Wrinkle,
             characteristic: Characteristic,
             impression: Impression,
-            description: String? = null,
+            description: String? = "몽타주 설명입니다.",
             age: Int,
             gender: String,
             image: String? = null,

@@ -1,6 +1,7 @@
 package com.facegram.facegrambackend.domain.wrinkle
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
+import com.facegram.facegrambackend.domain.nose.Nose
 import javax.persistence.*
 
 
@@ -12,28 +13,54 @@ class Wrinkle constructor(
     val id: Long? = null,
 
     @Column
-    val forehead: String,
+    val forehead: String?,
 
     @Column
-    val glabella: String,
+    val glabella: String?,
 
     @Column
-    val eyes: String,
+    val eyes: String?,
 
     @Column
-    val mouth: String,
+    val mouth: String?,
 
     @Column
-    val cheek: String,
+    val cheek: String?,
 
     @Column
-    val lip: String,
+    val lip: String?,
 
     @Column
-    val neck: String,
+    val neck: String?,
 
     @OneToOne(mappedBy = "wrinkle")
     val analysis: Analysis
 
 ) {
+    companion object{
+        fun newInstance(
+            // 디폴트 파라미터
+            id: Long? = null,
+            forehead: String? = null,
+            glabella: String? = null,
+            eyes: String? = null,
+            mouth: String? = null,
+            cheek: String? = null,
+            lip: String? = null,
+            neck: String? = null,
+            analysis: Analysis
+        ): Wrinkle {
+            return Wrinkle(
+                id,
+                forehead,
+                glabella,
+                eyes,
+                mouth,
+                cheek,
+                lip,
+                neck,
+                analysis
+            )
+        }
+    }
 }
