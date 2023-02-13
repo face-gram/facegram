@@ -14,11 +14,15 @@ spring:
         default_batch_fetch_size: 1000
 
 
-  cloud:
-    gcp:
-      storage:
-        credentials:
-          location: classpath:
+#  cloud:
+#    gcp:
+#      storage:
+#        credentials:
+#          location: classpath:
+
+
+
+
 #spring:
 #  datasource:
 #    url: 'jdbc:h2:mem:facegram'

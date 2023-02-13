@@ -16,7 +16,7 @@ class User constructor(
     @Column
     var username: String,
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
     var analysis: MutableList<Analysis>? = null,
 
     ) {

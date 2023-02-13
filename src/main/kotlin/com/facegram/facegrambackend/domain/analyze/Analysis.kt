@@ -30,39 +30,39 @@ class Analysis constructor(
     @ManyToOne
     private val user: User,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "face_id")
     private val face: Face,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "hairstyle_id")
     private val hairstyle: Hairstyle,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "eyebrows_id")
     private val eyebrows: Eyebrows,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "eye_id")
     private val eye: Eye,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "nose_id")
     private val nose: Nose,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "mouth_id")
     private val mouth: Mouth,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "wrinkle_id")
     private val wrinkle: Wrinkle,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "characteristic_id")
     private val characteristic: Characteristic,
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "impression_id")
     private val impression: Impression,
 
