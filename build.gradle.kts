@@ -29,8 +29,10 @@ extra["springCloudVersion"] = "2021.0.5"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 //    implementation("org.springframework.boot:spring-boot-starter-validation")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.google.cloud:spring-cloud-gcp-starter")
@@ -46,6 +48,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
     implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+    implementation("io.jsonwebtoken:jjwt:0.11.2")
 }
 
 dependencyManagement {

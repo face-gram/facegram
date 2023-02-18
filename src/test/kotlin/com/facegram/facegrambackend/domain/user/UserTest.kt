@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 @SpringBootTest
 class UserTest constructor(
-    @Autowired
     private val userRepository: UserRepository
 ){
 

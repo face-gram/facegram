@@ -1,6 +1,7 @@
 package com.facegram.facegrambackend.domain.user
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
+import com.facegram.facegrambackend.security.oauth2.user.AuthProvider
 import lombok.NoArgsConstructor
 import java.lang.IllegalArgumentException
 import javax.persistence.*
@@ -16,8 +17,25 @@ class User constructor(
     @Column
     var username: String,
 
+    @Column(unique = true)
+    val email: String,
+
+    @Column
+    val img: String,
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    val role: UserRole,
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    val authProvider: AuthProvider,
+
+    @Column
+    val refreshToken: String? = null,
+
     @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
-    var analysis: MutableList<Analysis>? = null,
+    var analysis: MutableList<Analysis> = mutableListOf(),
 
     ) {
     init{
@@ -34,9 +52,13 @@ class User constructor(
         fun newInstance(
             username: String,
             id: Long? = null,
-            analysis: MutableList<Analysis> = mutableListOf()
+            email: String,
+            img: String,
+            role: UserRole,
+            refreshToken: String,
+            authProvider: AuthProvider,
         ): User{
-            return User(id, username, analysis)
+            return User(id, username, email,img,role,authProvider)
         }
     }
 
