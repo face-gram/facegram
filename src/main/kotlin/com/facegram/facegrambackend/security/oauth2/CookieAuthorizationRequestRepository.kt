@@ -71,8 +71,9 @@ class CookieAuthorizationRequestRepository(
         }
     }
 
+    @Deprecated("Deprecated in Java", ReplaceWith("loadAuthorizationRequest(request)"))
     override fun removeAuthorizationRequest(request: HttpServletRequest?): OAuth2AuthorizationRequest? {
-        return loadAuthorizationRequest(request)
+        return this.loadAuthorizationRequest(request)
     }
 
     fun removeAuthorizationRequestCookies(request: HttpServletRequest?, response: HttpServletResponse?) {

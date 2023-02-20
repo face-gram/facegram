@@ -25,19 +25,18 @@ class CustomUserDetails(
 
     // 오브젝트 마더 패턴
     companion object{
-        fun create(user: User): CustomUserDetails{
+        private fun create(user: User): CustomUserDetails{
             val authorities: MutableCollection<out GrantedAuthority> = singletonList(SimpleGrantedAuthority("ROLE_USER"))
 
             return CustomUserDetails(
                 user.id,
                 user.username,
-                authorities,
-                null
+                authorities
             )
         }
 
         fun create(user: User,attributes: MutableMap<String, Any>?): CustomUserDetails{
-            val userDetails: CustomUserDetails = CustomUserDetails.create(user)
+            val userDetails: CustomUserDetails = this.create(user)
             userDetails.attributes = attributes
             return userDetails
         }

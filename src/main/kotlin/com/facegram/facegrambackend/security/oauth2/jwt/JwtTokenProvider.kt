@@ -55,7 +55,10 @@ class JwtTokenProvider(
         COOKIE_REFRESH_TOKEN_KEY = cookieKey
     }
 
-    fun createAccessToken(authentication: Authentication): String {
+    fun createAccessToken(authentication: Authentication?): String {
+        if(authentication == null){
+            throw IllegalArgumentException("유저 어선시케이션이 없습니다.")
+        }
         val now = Date()
         val validity = Date(now.time + ACCESS_TOKEN_EXPIRE_LENGTH)
         val user: CustomUserDetails = authentication.principal as CustomUserDetails
@@ -73,7 +76,10 @@ class JwtTokenProvider(
             .compact()
     }
 
-    fun createRefreshToken(authentication: Authentication, response: HttpServletResponse) {
+    fun createRefreshToken(authentication: Authentication?, response: HttpServletResponse?) {
+        if (authentication == null || response == null){
+            throw IllegalArgumentException("유저 어선시케이션이 없거나 리스폰스가 없습니다.")
+        }
         val now = Date()
         val validity = Date(now.time + REFRESH_TOKEN_EXPIRE_LENGTH)
         val refreshToken = Jwts.builder()

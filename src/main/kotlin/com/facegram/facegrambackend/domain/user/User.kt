@@ -32,7 +32,7 @@ class User constructor(
     val authProvider: AuthProvider,
 
     @Column
-    val refreshToken: String? = null,
+    val refreshToken: String?,
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
     var analysis: MutableList<Analysis> = mutableListOf(),
@@ -55,10 +55,10 @@ class User constructor(
             email: String,
             img: String,
             role: UserRole,
-            refreshToken: String,
+            refreshToken: String? = null,
             authProvider: AuthProvider,
         ): User{
-            return User(id, username, email,img,role,authProvider)
+            return User(id, username, email,img,role,authProvider,refreshToken)
         }
     }
 

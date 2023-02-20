@@ -67,7 +67,8 @@ constructor(
             userInfo.getEmail(),
             userInfo.getImageUrl(),
             UserRole.USER,
-            authProvider,
+            null,
+            authProvider
         )
         return userRepository.save(user)
     }
