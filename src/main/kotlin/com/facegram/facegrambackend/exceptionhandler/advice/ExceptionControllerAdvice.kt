@@ -22,19 +22,19 @@ class ExceptionControllerAdvice() {
 
     @ResponseStatus(UNAUTHORIZED) // 에러코드
     @ExceptionHandler(UnAuthorizedException::class)
-    fun JwtAuthenticationEntryPointExceptionHandler(e: UnAuthorizedException): ErrorResponse{
+    fun jwtAuthenticationEntryPointExceptionHandler(e: UnAuthorizedException): ErrorResponse{
         return ErrorResponse("UnAuthorized",e.message.orEmpty())
     }
 
     @ResponseStatus(FORBIDDEN) // 에러코드
     @ExceptionHandler(NoAuthorizationException::class)
-    fun JwtAccessDeniedExceptionHandler(e: NoAuthorizationException): ErrorResponse{
+    fun jwtAccessDeniedExceptionHandler(e: NoAuthorizationException): ErrorResponse{
         return ErrorResponse("Forbidden",e.message.orEmpty())
     }
 
     @ResponseStatus(BAD_REQUEST) // 에러코드
     @ExceptionHandler(NotMatchRedirectURIException::class)
-    fun NotMatchRedirectURIExceptionHandler(e: NotMatchRedirectURIException): ErrorResponse{
+    fun notMatchRedirectURIExceptionHandler(e: NotMatchRedirectURIException): ErrorResponse{
         return ErrorResponse("Bad_Request",e.message.orEmpty())
     }
 
