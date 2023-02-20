@@ -1,6 +1,6 @@
 package com.facegram.facegrambackend.security.oauth2.jwt
 
-import com.facegram.facegrambackend.util.NoAuthorizationException
+import com.facegram.facegrambackend.exceptionhandler.exception.NoAuthorizationException
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.stereotype.Component

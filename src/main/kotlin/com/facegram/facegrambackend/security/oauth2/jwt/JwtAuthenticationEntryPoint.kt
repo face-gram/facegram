@@ -1,6 +1,6 @@
 package com.facegram.facegrambackend.security.oauth2.jwt
 
-import com.facegram.facegrambackend.util.UnAuthorizedException
+import com.facegram.facegrambackend.exceptionhandler.exception.UnAuthorizedException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component

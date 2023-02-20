@@ -3,12 +3,11 @@ package com.facegram.facegrambackend.security.oauth2
 import com.facegram.facegrambackend.security.oauth2.CookieAuthorizationRequestRepository.Companion.REDIRECT_URI_PARAM_COOKIE_NAME
 import com.facegram.facegrambackend.security.oauth2.jwt.JwtTokenProvider
 import com.facegram.facegrambackend.util.CookieUtil
-import com.facegram.facegrambackend.util.NotMatchRedirectURIException
+import com.facegram.facegrambackend.exceptionhandler.exception.NotMatchRedirectURIException
 import lombok.extern.slf4j.Slf4j
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler

@@ -1,4 +1,4 @@
-package com.facegram.facegrambackend.util
+package com.facegram.facegrambackend.exceptionhandler.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus

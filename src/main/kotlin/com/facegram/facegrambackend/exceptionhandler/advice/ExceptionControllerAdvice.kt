@@ -1,13 +1,12 @@
 package com.facegram.facegrambackend.exceptionhandler.advice
 
 import com.facegram.facegrambackend.exceptionhandler.ErrorResponse
-import com.facegram.facegrambackend.util.NoAuthorizationException
-import com.facegram.facegrambackend.util.NotMatchRedirectURIException
-import com.facegram.facegrambackend.util.UnAuthorizedException
+import com.facegram.facegrambackend.exceptionhandler.exception.NoAuthorizationException
+import com.facegram.facegrambackend.exceptionhandler.exception.NotMatchRedirectURIException
+import com.facegram.facegrambackend.exceptionhandler.exception.UnAuthorizedException
 import org.springframework.http.HttpStatus.*
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import kotlin.IllegalArgumentException
 
