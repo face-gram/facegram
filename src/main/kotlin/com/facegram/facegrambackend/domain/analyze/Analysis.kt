@@ -2,7 +2,7 @@ package com.facegram.facegrambackend.domain.analyze
 
 import com.facegram.facegrambackend.domain.BaseTimeEntity
 import com.facegram.facegrambackend.domain.characteristic.Characteristic
-import com.facegram.facegrambackend.domain.eye.Eye
+import com.facegram.facegrambackend.domain.eyes.Eyes
 import com.facegram.facegrambackend.domain.eyebrows.Eyebrows
 import com.facegram.facegrambackend.domain.face.Face
 import com.facegram.facegrambackend.domain.hairstyle.Hairstyle
@@ -12,13 +12,11 @@ import com.facegram.facegrambackend.domain.nose.Nose
 import com.facegram.facegrambackend.domain.user.User
 import com.facegram.facegrambackend.domain.wrinkle.Wrinkle
 import lombok.NoArgsConstructor
-import org.jetbrains.annotations.NotNull
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
 @NoArgsConstructor
-class Analysis constructor(
+class Analysis @JvmOverloads constructor(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,8 +41,8 @@ class Analysis constructor(
     private val eyebrows: Eyebrows,
 
     @OneToOne(cascade = [CascadeType.REMOVE])
-    @JoinColumn(name = "eye_id")
-    private val eye: Eye,
+    @JoinColumn(name = "eyes_id")
+    private val eyes: Eyes,
 
     @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "nose_id")
@@ -88,7 +86,7 @@ class Analysis constructor(
             face: Face,
             hairstyle: Hairstyle,
             eyebrows: Eyebrows,
-            eye: Eye,
+            eyes: Eyes,
             nose: Nose,
             mouth: Mouth,
             wrinkle: Wrinkle,
@@ -106,7 +104,7 @@ class Analysis constructor(
                 face,
                 hairstyle,
                 eyebrows,
-                eye,
+                eyes,
                 nose,
                 mouth,
                 wrinkle,

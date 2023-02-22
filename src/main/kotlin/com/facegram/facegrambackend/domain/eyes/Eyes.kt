@@ -1,12 +1,11 @@
-package com.facegram.facegrambackend.domain.eye
+package com.facegram.facegrambackend.domain.eyes
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
-import com.facegram.facegrambackend.domain.characteristic.Characteristic
 import javax.persistence.*
 
 
 @Entity
-class Eye constructor(
+class Eyes constructor(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +47,8 @@ class Eye constructor(
             eyeLids: String? = null,
             bottom: String? = null,
             analysis: Analysis
-        ): Eye {
-            return Eye(
+        ): Eyes {
+            return Eyes(
                 id,
                 size,
                 type,

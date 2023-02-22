@@ -1,7 +1,6 @@
 package com.facegram.facegrambackend.domain.eyebrows
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
-import com.facegram.facegrambackend.domain.characteristic.Characteristic
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -12,6 +11,7 @@ import javax.persistence.OneToOne
 
 @Entity
 class Eyebrows constructor(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

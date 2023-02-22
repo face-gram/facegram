@@ -1,7 +1,6 @@
 package com.facegram.facegrambackend.domain.characteristic
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
-import com.facegram.facegrambackend.domain.face.Face
 import javax.persistence.*
 
 
