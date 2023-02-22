@@ -19,13 +19,11 @@ class Hairstyle constructor(
     val topLength: String,
 
     @Column
-    val sideLength: String,
+    val sizeLength: String,
 
     @Column
     val part: String?,
 
-    @OneToOne(mappedBy = "hairstyle")
-    val analysis: Analysis
 ) {
     companion object{
         fun newInstance(
@@ -33,17 +31,15 @@ class Hairstyle constructor(
             id: Long? = null,
             hairType: String,
             topLength: String,
-            sideLength: String,
+            sizeLength: String,
             part: String? = null,
-            analysis: Analysis
         ): Hairstyle {
             return Hairstyle(
                 id,
                 hairType,
                 topLength,
-                sideLength,
+                sizeLength,
                 part,
-                analysis
             )
         }
     }

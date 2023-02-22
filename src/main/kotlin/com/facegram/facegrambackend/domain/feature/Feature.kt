@@ -1,12 +1,15 @@
-package com.facegram.facegrambackend.domain.characteristic
+package com.facegram.facegrambackend.domain.feature
 
-import com.facegram.facegrambackend.domain.analyze.Analysis
-import javax.persistence.*
-
+import com.facegram.facegrambackend.domain.hairstyle.Hairstyle
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
 @Entity
-class Characteristic constructor(
-
+class Feature
+constructor(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -27,6 +30,9 @@ class Characteristic constructor(
     val mole: String?,
 
     @Column
+    val freckles: String?,
+
+    @Column
     val spots: String?,
 
     @Column
@@ -34,6 +40,10 @@ class Characteristic constructor(
 
     @Column
     val makeup: String?,
+
+    @Column
+    val description: String,
+
 ) {
 
     companion object{
@@ -45,20 +55,24 @@ class Characteristic constructor(
             dimple: String? = null,
             scar: String? = null,
             mole: String? = null,
+            freckles: String? = null,
             spots: String? = null,
             tattoo: String? = null,
             makeup: String? = null,
-        ): Characteristic {
-            return Characteristic(
+            description: String,
+        ): Feature {
+            return Feature(
                 id,
                 mustache,
                 sideburns,
                 dimple,
                 scar,
                 mole,
+                freckles,
                 spots,
                 tattoo,
                 makeup,
+                description
             )
         }
     }

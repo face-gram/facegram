@@ -36,9 +36,6 @@ class Face constructor(
     @Column
     val cheek: String?,
 
-    @OneToOne(mappedBy = "face")
-    val analysis: Analysis
-
 ) {
 
     companion object{
@@ -52,7 +49,6 @@ class Face constructor(
             chinType: String? = null,
             chinSize: String? = null,
             cheek: String? = null,
-            analysis: Analysis
         ): Face {
             return Face(
                 id,
@@ -63,7 +59,6 @@ class Face constructor(
                 chinType,
                 chinSize,
                 cheek,
-                analysis
             )
         }
     }

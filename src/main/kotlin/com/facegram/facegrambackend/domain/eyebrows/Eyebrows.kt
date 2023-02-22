@@ -30,10 +30,6 @@ class Eyebrows constructor(
 
     @Column
     val glabella: String?,
-
-    @OneToOne(mappedBy = "eyebrows")
-    val analysis: Analysis
-
 ) {
     companion object{
         fun newInstance(
@@ -44,7 +40,6 @@ class Eyebrows constructor(
             length: String? = null,
             thick: String? = null,
             glabella: String? = null,
-            analysis: Analysis
         ): Eyebrows {
             return Eyebrows(
                 id,
@@ -53,7 +48,6 @@ class Eyebrows constructor(
                 length,
                 thick,
                 glabella,
-                analysis
             )
         }
     }

@@ -30,8 +30,6 @@ class Nose constructor(
     @Column
     val philtrum: String?,
 
-    @OneToOne(mappedBy = "nose")
-    val analysis: Analysis
 ){
     companion object{
         fun newInstance(
@@ -43,7 +41,6 @@ class Nose constructor(
             top: String? = null,
             noseTrills: String? = null,
             philtrum: String? = null,
-            analysis: Analysis
         ): Nose {
             return Nose(
                 id,
@@ -53,7 +50,6 @@ class Nose constructor(
                 top,
                 noseTrills,
                 philtrum,
-                analysis
             )
         }
     }

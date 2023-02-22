@@ -28,9 +28,6 @@ class Mouth constructor(
 
     @Column
     val line: String?,
-
-    @OneToOne(mappedBy = "mouth")
-    val analysis: Analysis
 ) {
     companion object{
         fun newInstance(
@@ -42,7 +39,6 @@ class Mouth constructor(
             ratio: String? = null,
             side: String? = null,
             line: String? = null,
-            analysis: Analysis
         ): Mouth {
             return Mouth(
                 id,
@@ -52,7 +48,6 @@ class Mouth constructor(
                 ratio,
                 side,
                 line,
-                analysis
             )
         }
     }

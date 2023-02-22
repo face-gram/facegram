@@ -31,9 +31,6 @@ class Eyes constructor(
 
     @Column
     val bottom: String?,
-
-    @OneToOne(mappedBy = "eye")
-    val analysis: Analysis
 ) {
     companion object{
         fun newInstance(
@@ -46,7 +43,6 @@ class Eyes constructor(
             shape: String? = null,
             eyeLids: String? = null,
             bottom: String? = null,
-            analysis: Analysis
         ): Eyes {
             return Eyes(
                 id,
@@ -57,7 +53,6 @@ class Eyes constructor(
                 shape,
                 eyeLids,
                 bottom,
-                analysis
             )
         }
     }

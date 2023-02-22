@@ -30,11 +30,6 @@ class Wrinkle constructor(
     @Column
     val lip: String?,
 
-    @Column
-    val neck: String?,
-
-    @OneToOne(mappedBy = "wrinkle")
-    val analysis: Analysis
 
 ) {
     companion object{
@@ -47,8 +42,6 @@ class Wrinkle constructor(
             mouth: String? = null,
             cheek: String? = null,
             lip: String? = null,
-            neck: String? = null,
-            analysis: Analysis
         ): Wrinkle {
             return Wrinkle(
                 id,
@@ -58,8 +51,6 @@ class Wrinkle constructor(
                 mouth,
                 cheek,
                 lip,
-                neck,
-                analysis
             )
         }
     }

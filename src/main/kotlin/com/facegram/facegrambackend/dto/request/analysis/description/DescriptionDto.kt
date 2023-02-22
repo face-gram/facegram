@@ -19,7 +19,6 @@ data class DescriptionDto(
     val eyes: EyesDto,
     val nose: NoseDto,
     val mouth: MouthDto,
-    val neck: NeckDto,
     val wrinkle: WrinkleDto,
     val feature: FeatureDto,
     val impression: ImpressionDto
