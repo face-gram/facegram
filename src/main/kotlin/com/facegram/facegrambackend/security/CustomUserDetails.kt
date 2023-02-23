@@ -26,7 +26,8 @@ class CustomUserDetails(
     // 오브젝트 마더 패턴
     companion object{
         private fun create(user: User): CustomUserDetails{
-            val authorities: MutableCollection<out GrantedAuthority> = singletonList(SimpleGrantedAuthority("ROLE_USER"))
+            val authorities: MutableCollection<out GrantedAuthority> =
+                singletonList(SimpleGrantedAuthority("ROLE_USER"))
 
             return CustomUserDetails(
                 user.id,
@@ -72,7 +73,7 @@ class CustomUserDetails(
     }
 
 
-    // OAUTH2에서 원하는 정보
+    // OAuth2User Override
     override fun getName(): String {
         return id.toString()
     }

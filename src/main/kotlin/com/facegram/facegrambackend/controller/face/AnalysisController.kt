@@ -1,8 +1,10 @@
 package com.facegram.facegrambackend.controller.face
 
 import com.facegram.facegrambackend.dto.request.analysis.AnalysisLowCreateRequestDto
+import com.facegram.facegrambackend.security.CustomUserDetails
 import com.facegram.facegrambackend.service.analysis.AnalysisService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,7 +17,9 @@ class AnalysisController(
 ) {
 
     @PostMapping("/low")
-    fun createAnalysisLow(@RequestBody analysisLowCreateRequestDto: AnalysisLowCreateRequestDto ): ResponseEntity<Any> {
-        return analysisService.createAnalysisLow(analysisLowCreateRequestDto)
+    fun createAnalysisLow(@RequestBody analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
+                          @AuthenticationPrincipal user : CustomUserDetails
+    ): ResponseEntity<Any> {
+        return analysisService.createAnalysisLow(analysisLowCreateRequestDto,user)
     }
 }

@@ -5,6 +5,7 @@ import com.facegram.facegrambackend.domain.characteristic.Characteristic
 import com.facegram.facegrambackend.domain.eyes.Eyes
 import com.facegram.facegrambackend.domain.eyebrows.Eyebrows
 import com.facegram.facegrambackend.domain.face.Face
+import com.facegram.facegrambackend.domain.feature.Feature
 import com.facegram.facegrambackend.domain.hairstyle.Hairstyle
 import com.facegram.facegrambackend.domain.impression.Impression
 import com.facegram.facegrambackend.domain.mouth.Mouth
@@ -16,7 +17,7 @@ import javax.persistence.*
 
 @Entity
 @NoArgsConstructor
-class Analysis @JvmOverloads constructor(
+class Analysis constructor(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,9 +57,14 @@ class Analysis @JvmOverloads constructor(
     @JoinColumn(name = "wrinkle_id")
     private val wrinkle: Wrinkle,
 
+//    @OneToOne(cascade = [CascadeType.REMOVE])
+//    @JoinColumn(name = "characteristic_id")
+//    private val characteristic: Characteristic,
+
     @OneToOne(cascade = [CascadeType.REMOVE])
-    @JoinColumn(name = "characteristic_id")
-    private val characteristic: Characteristic,
+    @JoinColumn(name = "feature_id")
+    private val feature: Feature,
+
 
     @OneToOne(cascade = [CascadeType.REMOVE])
     @JoinColumn(name = "impression_id")
@@ -74,7 +80,7 @@ class Analysis @JvmOverloads constructor(
     private val gender: String,
 
     @Column
-    private var image: String?,
+    var image: String?,
 
 
     ): BaseTimeEntity() {
@@ -90,7 +96,8 @@ class Analysis @JvmOverloads constructor(
             nose: Nose,
             mouth: Mouth,
             wrinkle: Wrinkle,
-            characteristic: Characteristic,
+//            characteristic: Characteristic,
+            feature: Feature,
             impression: Impression,
             description: String? = "몽타주 설명입니다.",
             age: Int,
@@ -108,7 +115,8 @@ class Analysis @JvmOverloads constructor(
                 nose,
                 mouth,
                 wrinkle,
-                characteristic,
+//                characteristic,
+                feature,
                 impression,
                 description,
                 age,

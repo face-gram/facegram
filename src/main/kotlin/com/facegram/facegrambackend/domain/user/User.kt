@@ -12,7 +12,7 @@ class User constructor(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long? = null,
 
     @Column
     var username: String,

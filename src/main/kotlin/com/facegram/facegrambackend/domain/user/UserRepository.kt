@@ -11,8 +11,11 @@ import java.util.Optional
 @Repository
 interface UserRepository: JpaRepository<User,Long> {
 
+    override fun findById(id:Long): Optional<User>
 
     fun findByEmail(email:String): User?
+
+    fun findByUsername(username:String):User?
 
     @Query("select u.refreshToken FROM User u WHERE u.id = :id")
     fun getRefreshTokenById():String
