@@ -5,6 +5,7 @@ import com.google.cloud.storage.BlobInfo
 import com.google.cloud.storage.Storage
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 
@@ -17,16 +18,16 @@ class GCSService constructor(
     private val storage: Storage
 ) {
 
-    fun uploadFileToGCS(gcsUploadRequestDto: GCSUploadRequestDto): String{
+    fun uploadFileToGCS(image: MultipartFile): String{
         val uuid: String = UUID.randomUUID().toString() // Google Cloud Storage에 저장될 파일 이름
-        val ext = gcsUploadRequestDto.image.contentType // 파일의 형식, 확장자
+        val ext = image.contentType // 파일의 형식, 확장자
 
         // Cloud에 이미지 업로드
         val blobInfo:BlobInfo = storage.create(
             BlobInfo.newBuilder(bucketName, uuid)
                 .setContentType(ext)
                 .build(),
-            gcsUploadRequestDto.image.inputStream
+            image.inputStream
         )
         return "https://storage.googleapis.com/${bucketName}/${uuid}.${ext}"
     }

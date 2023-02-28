@@ -24,60 +24,60 @@ class Analysis constructor(
     val id: Long? = null,
 
     @Column
-    private var name: String,
+    var name: String,
 
     @ManyToOne
-    private val user: User,
+    val user: User,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "face_id")
-    private val face: Face,
+    val face: Face,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "hairstyle_id")
-    private val hairstyle: Hairstyle,
+    val hairstyle: Hairstyle,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true,fetch = FetchType.LAZY)
     @JoinColumn(name = "eyebrows_id")
-    private val eyebrows: Eyebrows,
+    val eyebrows: Eyebrows,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "eyes_id")
-    private val eyes: Eyes,
+    val eyes: Eyes,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "nose_id")
-    private val nose: Nose,
+    val nose: Nose,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "mouth_id")
-    private val mouth: Mouth,
+    val mouth: Mouth,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "wrinkle_id")
-    private val wrinkle: Wrinkle,
+    val wrinkle: Wrinkle,
 
 //    @OneToOne(cascade = [CascadeType.REMOVE])
 //    @JoinColumn(name = "characteristic_id")
 //    private val characteristic: Characteristic,
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "feature_id")
-    private val feature: Feature,
+    val feature: Feature,
 
 
-    @OneToOne(cascade = [CascadeType.REMOVE])
+    @OneToOne(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "impression_id")
-    private val impression: Impression,
+    val impression: Impression,
 
     @Column
-    private var description: String?,
+    var description: String,
 
     @Column
-    private val age: Int,
+    val age: Int,
 
     @Column
-    private val gender: String,
+    val gender: String,
 
     @Column
     var image: String?,
@@ -87,7 +87,7 @@ class Analysis constructor(
     companion object{
         fun newInstance(
             id: Long? = null,
-            name: String = "몽타주 이름",
+            name: String,
             user: User,
             face: Face,
             hairstyle: Hairstyle,
@@ -99,7 +99,7 @@ class Analysis constructor(
 //            characteristic: Characteristic,
             feature: Feature,
             impression: Impression,
-            description: String? = "몽타주 설명입니다.",
+            description: String,
             age: Int,
             gender: String,
             image: String? = null,

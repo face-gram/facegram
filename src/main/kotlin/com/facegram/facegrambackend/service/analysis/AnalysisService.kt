@@ -26,6 +26,7 @@ import com.facegram.facegrambackend.domain.wrinkle.WrinkleRepository
 import com.facegram.facegrambackend.dto.request.analysis.AnalysisLowCreateRequestDto
 import com.facegram.facegrambackend.dto.response.Message
 import com.facegram.facegrambackend.dto.response.ResponseType
+import com.facegram.facegrambackend.gcp.storage.GCSService
 import com.facegram.facegrambackend.security.CustomUserDetails
 import com.facegram.facegrambackend.service.responseentity.ResponseEntityService
 import org.springframework.http.HttpStatus
@@ -48,11 +49,19 @@ class AnalysisService constructor(
     private val featureRepository: FeatureRepository,
     private val impressionRepository: ImpressionRepository,
     private val responseEntityService: ResponseEntityService,
+    private val gcsService: GCSService
 
 ) {
+    companion object{
+        private var analysisNum = 0;
+
+        fun numIncrease(){
+            analysisNum++
+        }
+    }
 
     @Transactional
-    fun createAnalysisLow(analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
+    fun createAnalysis(analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
                           user: CustomUserDetails)
     :ResponseEntity<Any>{
         val face = faceRepository.save(createFace(analysisLowCreateRequestDto))
@@ -66,9 +75,13 @@ class AnalysisService constructor(
         val feature = featureRepository.save(createFeature(analysisLowCreateRequestDto))
         val impression = impressionRepository.save(createImpression(analysisLowCreateRequestDto))
         val findUser = userRepository.findByUsername(user.username)?: throw IllegalArgumentException("없는 유저입니다.")
+        val imageUrl = gcsService.uploadFileToGCS(analysisLowCreateRequestDto.image)
+
+        numIncrease()
+
         val analysis = Analysis.newInstance(
             null,
-            "몽타주 이름",
+            "${user.username}님이 생성한 몽타주 $analysisNum",
             findUser,
             face,
             hairstyle,
@@ -84,10 +97,11 @@ class AnalysisService constructor(
                 .info.age.toInt(),
             analysisLowCreateRequestDto
                 .info.gender,
-            null
+            imageUrl
         )
 
         analysisRepository.save(analysis)
+
         val message = Message(ResponseType.OK,"성공입니다.")
         return responseEntityService.createResponseEntity(message,HttpStatus.OK)
     }

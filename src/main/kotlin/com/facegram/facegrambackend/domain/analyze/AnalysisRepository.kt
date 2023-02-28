@@ -11,4 +11,6 @@ interface AnalysisRepository: JpaRepository<Analysis,Long>{
 
 
     fun findAllByUser(user: Optional<User>): List<Analysis>
+
+    fun deleteAnalysisById(id: Long)
 }

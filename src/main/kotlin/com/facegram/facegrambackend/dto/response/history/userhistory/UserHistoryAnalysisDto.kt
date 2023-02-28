@@ -1,4 +1,4 @@
-package com.facegram.facegrambackend.dto.response.history.analysishistory
+package com.facegram.facegrambackend.dto.response.history.userhistory
 
 import java.time.LocalDateTime
 

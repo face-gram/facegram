@@ -16,10 +16,10 @@ class AnalysisController(
     private val analysisService: AnalysisService
 ) {
 
-    @PostMapping("/low")
-    fun createAnalysisLow(@RequestBody analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
+    @PostMapping("/")
+    fun createAnalysis(@RequestBody analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
                           @AuthenticationPrincipal user : CustomUserDetails
     ): ResponseEntity<Any> {
-        return analysisService.createAnalysisLow(analysisLowCreateRequestDto,user)
+        return analysisService.createAnalysis(analysisLowCreateRequestDto,user)
     }
 }
