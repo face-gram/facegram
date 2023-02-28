@@ -10,6 +10,7 @@ import com.facegram.facegrambackend.security.oauth2.jwt.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -27,11 +28,13 @@ class SecurityConfig(
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
     private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
     private val jwtAccessDeniedHandler: JwtAccessDeniedHandler,
-    private val web: WebSecurityCustomizer) {
+) {
 
     @Bean
-    fun webSecurityCustomizer(): WebSecurityCustomizer {
-        return (web) -> web?.ignoring()?.antMatchers("/h2-console/**","/favicon.ico")
+    fun webSecurityCustomizer(): WebSecurityCustomizer? {
+        return WebSecurityCustomizer { web: WebSecurity ->
+            web.ignoring().antMatchers("/h2-console/**\",\"/favicon.ico")
+        }
     }
 //        return (web) -> web?.ignoring()?.antMatchers("/h2-console/**","/favicon.ico")
      @Bean
