@@ -7,13 +7,17 @@ import com.facegram.facegrambackend.security.oauth2.OAuth2AuthenticationSuccessH
 import com.facegram.facegrambackend.security.oauth2.jwt.JwtAccessDeniedHandler
 import com.facegram.facegrambackend.security.oauth2.jwt.JwtAuthenticationEntryPoint
 import com.facegram.facegrambackend.security.oauth2.jwt.JwtAuthenticationFilter
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.context.WebApplicationContext
 
 @Configuration
 @EnableWebSecurity
@@ -25,16 +29,17 @@ class SecurityConfig(
     private val authenticationFailureHandler: OAuth2AuthenticationFailureHandler,
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
     private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
-    private val jwtAccessDeniedHandler: JwtAccessDeniedHandler
+    private val jwtAccessDeniedHandler: JwtAccessDeniedHandler,
+    private val web: WebSecurityCustomizer {
 
-): WebSecurityConfigurerAdapter() {
-
-
-    override fun configure(web: WebSecurity?) {
-        web?.ignoring()?.antMatchers("/h2-console/**","/favicon.ico")
+    @Bean
+    fun webSecurityCustomizer(): WebSecurityCustomizer {
+        return (web) -> web?.ignoring()?.antMatchers("/h2-console/**","/favicon.ico")
     }
-
-    override fun configure(http: HttpSecurity) {
+//        return (web) -> web?.ignoring()?.antMatchers("/h2-console/**","/favicon.ico")
+    }
+     @Bean
+     fun configure(http: HttpSecurity):SecurityFilterChain {
         http.authorizeHttpRequests()
             .antMatchers("/h2-console/**").permitAll()
             // 여기서 풀어줄 거만 적자 .permitAll()해버리면 된다.
@@ -81,8 +86,6 @@ class SecurityConfig(
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint) // 401
                 .accessDeniedHandler(jwtAccessDeniedHandler)// 403
         http.addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter::class.java)
-
-
-
+         return http.build()
     }
 }

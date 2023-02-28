@@ -33,11 +33,20 @@ class OAuth2AuthenticationSuccessHandler(
     val log: Logger = LoggerFactory.getLogger(JwtTokenProvider::class.java)
 
     override fun onAuthenticationSuccess(
-        request: HttpServletRequest?,
-        response: HttpServletResponse?,
-        authentication: Authentication?
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authentication: Authentication
 
     ) {
+        val targetUrl: String = determineTargetUrl(request, response, authentication)
+
+        if(response.isCommitted){
+            log.info("이미 리스폰스가 커밋되었습니다.")
+            return
+        }
+        clearAuthenticationAttributes(request,response)
+        redirectStrategy.sendRedirect(request,response,targetUrl)
+
 
     }
 

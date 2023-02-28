@@ -21,7 +21,7 @@ class Eyes constructor(
     val distance: String?,
 
     @Column
-    val slent: String?,
+    val slant: String?,
 
     @Column
     val shape: String?,

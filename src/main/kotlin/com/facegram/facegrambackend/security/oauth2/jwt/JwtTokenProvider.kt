@@ -96,7 +96,7 @@ class JwtTokenProvider(
             .maxAge(REFRESH_TOKEN_EXPIRE_LENGTH / 1000)
             .path("/")
             .build()
-        response.addHeader("Set-Cookie", cookie.toString())
+        response.addHeader("RefreshToken", cookie.toString())
     }
 
     private fun saveRefreshToken(authentication: Authentication, refreshToken: String) {

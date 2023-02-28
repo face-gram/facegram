@@ -10,30 +10,29 @@ import com.facegram.facegrambackend.domain.mouth.Mouth
 import com.facegram.facegrambackend.domain.nose.Nose
 import com.facegram.facegrambackend.domain.user.User
 import com.facegram.facegrambackend.domain.wrinkle.Wrinkle
+import com.facegram.facegrambackend.dto.response.history.analysishistory.analysisstatus.*
 import javax.persistence.*
 
 data class AnalysisHistoryResponseDto
 constructor(
 
+    val face: FaceResponseDto,
 
-    val face: Face,
+    val hairstyle: HairstyleResponseDto,
 
-    val hairstyle: Hairstyle,
+    val eyebrows: EyebrowsResponseDto,
 
-    val eyebrows: Eyebrows,
+    val eyes: EyesResponseDto,
 
-    val eyes: Eyes,
+    val nose: NoseResponseDto,
 
-    val nose: Nose,
+    val mouth: MouthResponseDto,
 
-    val mouth: Mouth,
+    val wrinkle: WrinkleResponseDto,
 
-    val wrinkle: Wrinkle,
+    val feature: FeatureResponseDto,
 
-    val feature: Feature,
-
-    val impression: Impression,
-
+    val impression: ImpressionResponseDto,
 
     val age: Int,
 

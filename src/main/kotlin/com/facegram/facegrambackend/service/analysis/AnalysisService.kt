@@ -2,7 +2,6 @@ package com.facegram.facegrambackend.service.analysis
 
 import com.facegram.facegrambackend.domain.analyze.Analysis
 import com.facegram.facegrambackend.domain.analyze.AnalysisRepository
-import com.facegram.facegrambackend.domain.characteristic.Characteristic
 import com.facegram.facegrambackend.domain.eyebrows.Eyebrows
 import com.facegram.facegrambackend.domain.eyebrows.EyebrowsRepository
 import com.facegram.facegrambackend.domain.eyes.Eyes
@@ -19,7 +18,6 @@ import com.facegram.facegrambackend.domain.mouth.Mouth
 import com.facegram.facegrambackend.domain.mouth.MouthRepository
 import com.facegram.facegrambackend.domain.nose.Nose
 import com.facegram.facegrambackend.domain.nose.NoseRepository
-import com.facegram.facegrambackend.domain.user.User
 import com.facegram.facegrambackend.domain.user.UserRepository
 import com.facegram.facegrambackend.domain.wrinkle.Wrinkle
 import com.facegram.facegrambackend.domain.wrinkle.WrinkleRepository
@@ -28,11 +26,14 @@ import com.facegram.facegrambackend.dto.response.Message
 import com.facegram.facegrambackend.dto.response.ResponseType
 import com.facegram.facegrambackend.gcp.storage.GCSService
 import com.facegram.facegrambackend.security.CustomUserDetails
+import com.facegram.facegrambackend.service.auth.AuthService
 import com.facegram.facegrambackend.service.responseentity.ResponseEntityService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 
 @Service
@@ -49,7 +50,8 @@ class AnalysisService constructor(
     private val featureRepository: FeatureRepository,
     private val impressionRepository: ImpressionRepository,
     private val responseEntityService: ResponseEntityService,
-    private val gcsService: GCSService
+    private val gcsService: GCSService,
+    private val authService: AuthService
 
 ) {
     companion object{
@@ -61,8 +63,12 @@ class AnalysisService constructor(
     }
 
     @Transactional
-    fun createAnalysis(analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
-                          user: CustomUserDetails)
+    fun createAnalysis(
+        analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
+        user: CustomUserDetails,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    )
     :ResponseEntity<Any>{
         val face = faceRepository.save(createFace(analysisLowCreateRequestDto))
         val hairstyle = hairstyleRepository.save(createHairstyle(analysisLowCreateRequestDto))
@@ -103,6 +109,10 @@ class AnalysisService constructor(
         analysisRepository.save(analysis)
 
         val message = Message(ResponseType.OK,"성공입니다.")
+
+        authService.refreshToken(response,request,
+            request.getHeader("Authorization"))
+
         return responseEntityService.createResponseEntity(message,HttpStatus.OK)
     }
 
@@ -208,7 +218,7 @@ class AnalysisService constructor(
             analysisLowCreateRequestDto
                 .description
                 .eyes
-                .slent,
+                .slant,
             analysisLowCreateRequestDto
                 .description
                 .eyes

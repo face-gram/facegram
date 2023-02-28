@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 
 @Service
@@ -16,18 +18,25 @@ class HistoryController constructor(
     private val historyService: HistoryService,
 ) {
     @GetMapping("/")
-    fun historySearchByUser(@AuthenticationPrincipal user: CustomUserDetails): MutableList<UserHistoryAnalysisDto>  {
-        return historyService.historySearchByUser(user)
+    fun historySearchByUser(@AuthenticationPrincipal user: CustomUserDetails,
+                            request: HttpServletRequest,
+                            response: HttpServletResponse
+    ): MutableList<UserHistoryAnalysisDto>  {
+        return historyService.historySearchByUser(user,request,response)
     }
 
     @DeleteMapping("/{id}")
-    fun historyDeleteById(@PathVariable id: Long): ResponseEntity<Any> {
-        return historyService.historyDeleteById(id)
+    fun historyDeleteById(@PathVariable id: Long,
+                          request: HttpServletRequest,
+                          response: HttpServletResponse): ResponseEntity<Any> {
+        return historyService.historyDeleteById(id,request,response)
     }
 
     @GetMapping("/{id}")
-    fun historySearchById(@PathVariable id: Long): AnalysisHistoryResponseDto{
-        return historyService.historySearchById(id)
+    fun historySearchById(@PathVariable id: Long,
+                          request: HttpServletRequest,
+                          response: HttpServletResponse): AnalysisHistoryResponseDto{
+        return historyService.historySearchById(id,request,response)
     }
 
 

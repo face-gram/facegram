@@ -18,7 +18,7 @@ interface UserRepository: JpaRepository<User,Long> {
     fun findByUsername(username:String):User?
 
     @Query("select u.refreshToken FROM User u WHERE u.id = :id")
-    fun getRefreshTokenById():String
+    fun getRefreshTokenById(id: Long):String
 
 
     @Transactional

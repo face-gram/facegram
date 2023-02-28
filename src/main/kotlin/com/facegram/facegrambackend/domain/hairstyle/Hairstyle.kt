@@ -13,7 +13,7 @@ class Hairstyle constructor(
     val id: Long? = null,
 
     @Column
-    val hairType: String,
+    val type: String,
 
     @Column
     val topLength: String,
