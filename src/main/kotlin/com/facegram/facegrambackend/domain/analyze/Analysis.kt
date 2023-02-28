@@ -12,6 +12,7 @@ import com.facegram.facegrambackend.domain.mouth.Mouth
 import com.facegram.facegrambackend.domain.nose.Nose
 import com.facegram.facegrambackend.domain.user.User
 import com.facegram.facegrambackend.domain.wrinkle.Wrinkle
+import lombok.Getter
 import lombok.NoArgsConstructor
 import javax.persistence.*
 
