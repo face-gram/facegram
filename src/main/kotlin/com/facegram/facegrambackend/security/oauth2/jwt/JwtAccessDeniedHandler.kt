@@ -14,6 +14,7 @@ class JwtAccessDeniedHandler():AccessDeniedHandler {
         response: HttpServletResponse?,
         accessDeniedException: AccessDeniedException?
     ) {
+        //        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,authException.localizedMessage)
         throw NoAuthorizationException("권한이 없는 사용자입니다.")
     }
 }
