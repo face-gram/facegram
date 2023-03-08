@@ -1,14 +1,4 @@
 spring:
-#  cloud:
-#    gcp:
-#      storage:
-#        credentials:
-#          locations: classpath: #{??? key?? ??}.json
-#  # ????? Spring Boot?? ???? {??? key?? ??}.json? ?? Storage? ???? @Autowired? ???? ???.
-#  # ??? ? ??? @Autowired? ?? ??? .json ?? ?? ???? ??? ?? ????.
-#        project-id: #{key ?? ?? ?? project_id ?}
-#        bucket: #{?? ??}
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3308/facegram?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
@@ -23,52 +13,25 @@ spring:
         format_sql: false
         default_batch_fetch_size: 1000
         globally_quoted_identifiers: true
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 693007930110-5u66i5c992figci0e3oh3n53sm8q6hb7.apps.googleusercontent.com
-            client-secret: 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
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
-            scope: # 프로바이더에서 가져오는 값들.
-              - email
-              - profile
-  #OAuth2? ?? redirectUri? /login/oauth2/code/{provider} ???
-      #ex) /login/oauth2/code/google
-      #?? redirectUri? ??? ??? ?? ??? ??? ?? ??? ???? ??? application.yml? ???? ???
+  profiles:
+    include: oauth, cloud
+
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location=:src/main/resources/keys/key.json
+
 app:
   auth:
     token:
-      secret-key: "GDSCSOLUTIONCHALLENGEBACKEND"
-      refresh-cookie-key: "cookie"
+      secret-key: "GDSCSOLUTIONCHALLENGEFACEGRAMJOHNANDJASONPLEASEHELPIMINPAINSTOPTHISMADDNESS"
+      refresh-cookie-key: "refresh"
   oauth2:
     authorizedRedirectUri: "http://localhost:3000/oauth2/redirect"
-
-
-#  cloud:
-#    gcp:
-#      storage:
-#        credentials:
-#          location: classpath:
+  gcp:
+    storageName: "gdsc-solution-challenge-bucket"
 
 
 
 
-#spring:
-#  datasource:
-#    url: 'jdbc:h2:mem:facegram'
-#    username: 'user'
-#    password: ''
-#    driver-class-name: org.h2.Driver
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#    properties:
-#      hibernate:
-#        format_sql: true
-#        show_sql: true
-#  h2:
-#    console:
-#      enabled: true
-#      path: '/h2-console'

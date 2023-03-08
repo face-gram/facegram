@@ -43,7 +43,7 @@ class CookieUtil {
             if(cookies.isNotEmpty()){
                 for(cookie in cookies){
                     if(cookie.name.equals(name)){
-                        cookie.value = " "
+                        cookie.value = ""
                         cookie.path = "/"
                         cookie.maxAge = 0
                         response.addCookie(cookie)

@@ -11,10 +11,8 @@ import java.util.*
 
 @Service
 class GCSService constructor(
-
-    @Value("\${spring.cloud.gcp.storage.bucket}")
+    @Value("\${app.gcp.storageName}")
     private val bucketName: String,
-
     private val storage: Storage
 ) {
 

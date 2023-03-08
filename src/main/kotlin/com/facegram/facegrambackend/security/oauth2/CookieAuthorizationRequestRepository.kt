@@ -29,8 +29,8 @@ class CookieAuthorizationRequestRepository(
 
 
 
-    override fun loadAuthorizationRequest(request: HttpServletRequest?): OAuth2AuthorizationRequest {
-        return CookieUtil.getCookie(request!!, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
+    override fun loadAuthorizationRequest(request: HttpServletRequest): OAuth2AuthorizationRequest {
+        return CookieUtil.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
             .map { cookie ->
                 CookieUtil.deserialize(
                     cookie,
@@ -72,7 +72,7 @@ class CookieAuthorizationRequestRepository(
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith("loadAuthorizationRequest(request)"))
-    override fun removeAuthorizationRequest(request: HttpServletRequest?): OAuth2AuthorizationRequest? {
+    override fun removeAuthorizationRequest(request: HttpServletRequest): OAuth2AuthorizationRequest? {
         return this.loadAuthorizationRequest(request)
     }
 
