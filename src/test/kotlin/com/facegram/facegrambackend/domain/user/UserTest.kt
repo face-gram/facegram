@@ -16,7 +16,7 @@ class UserTest constructor(
     @Test
     fun userInsert(){
         //given
-        val user1  = User.newInstance("seyeol")
+        val user1  = User()
         //when
         val user = userRepository.save(user1)
         //then
