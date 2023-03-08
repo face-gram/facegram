@@ -17,7 +17,7 @@ import java.util.Collections.*
 @Setter
 class CustomUserDetails(
     private val id: Long?,
-    private val username: String,
+    private val email: String,
     private val authorities: Collection<GrantedAuthority>,
     private var attributes: MutableMap<String, Any>? = null
 
@@ -53,7 +53,7 @@ class CustomUserDetails(
         return null
     }
     override fun getUsername(): String {
-        return username
+        return email
     }
 
     override fun isAccountNonExpired(): Boolean {
