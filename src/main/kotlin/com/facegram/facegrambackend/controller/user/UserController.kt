@@ -7,4 +7,5 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/user")
 class UserController {
     // trigger check
+    // trigger check 2
 }
