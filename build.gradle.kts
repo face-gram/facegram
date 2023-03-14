@@ -40,15 +40,20 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("org.projectlombok:lombok")
-    runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 //    testImplementation("org.springframework.security:spring-security-test")
+
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
-    implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
-    implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
-    implementation("io.jsonwebtoken:jjwt:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+
+//    implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+//    implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
+//    implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+//    implementation("io.jsonwebtoken:jjwt:0.11.2")
 }
 
 dependencyManagement {
