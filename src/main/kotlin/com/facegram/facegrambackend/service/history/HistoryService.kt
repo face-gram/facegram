@@ -29,10 +29,10 @@ class HistoryService
     ) {
 
         @Transactional
-        fun historySearchByUser(user: CustomUserDetails, request: HttpServletRequest, response: HttpServletResponse)
+        fun historySearchByUser(userId: Long)
         : MutableList<UserHistoryAnalysisDto>{
             val history: MutableList<UserHistoryAnalysisDto> = mutableListOf()
-            val findUser: Optional<User> = userRepository.findById(user.name.toLong())
+            val findUser: Optional<User> = userRepository.findById(userId)
             if(findUser.isEmpty){
                 throw IllegalArgumentException("유저를 찾지 못했습니다.")
             }
@@ -50,7 +50,7 @@ class HistoryService
         }
 
         @Transactional
-        fun historySearchById(id: Long, request: HttpServletRequest, response: HttpServletResponse): AnalysisHistoryResponseDto{
+        fun historySearchById(id: Long): AnalysisHistoryResponseDto{
 
             val findAnalysis:Optional<Analysis> = analysisRepository.findById(id)
             if (findAnalysis.isPresent){

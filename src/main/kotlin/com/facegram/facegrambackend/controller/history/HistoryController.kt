@@ -22,7 +22,8 @@ class HistoryController constructor(
                             request: HttpServletRequest,
                             response: HttpServletResponse
     ): MutableList<UserHistoryAnalysisDto>  {
-        return historyService.historySearchByUser(user,request,response)
+        val userId: Long = user.name.toLong()
+        return historyService.historySearchByUser(userId)
     }
 
     @DeleteMapping("/{id}")
@@ -33,10 +34,8 @@ class HistoryController constructor(
     }
 
     @GetMapping("/{id}")
-    fun historySearchById(@PathVariable id: Long,
-                          request: HttpServletRequest,
-                          response: HttpServletResponse): AnalysisHistoryResponseDto{
-        return historyService.historySearchById(id,request,response)
+    fun historySearchById(@PathVariable id: Long): AnalysisHistoryResponseDto{
+        return historyService.historySearchById(id)
     }
 
 
