@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Text, View } from './Themed';
-import { FlatList, ScrollView, StyleSheet } from "react-native";
+import { FlatList, ScrollView, StyleSheet, TextInput } from "react-native";
+import  "radio-buttons-react-native-expo";
+
 
 import Attribute from "./Attribute";
 
@@ -8,6 +10,8 @@ type attribute = {
   key: number;
   name: string;
   buttons: string[];
+  storearea: any;
+  storefunction: any;
 }
 
 function SetButtons( attribute: attribute ): any {
@@ -35,6 +39,8 @@ function SetButtons( attribute: attribute ): any {
               handleClick={faceTypeClick}
               elementIndex={index}
               content={element}
+              storearea={attribute.storearea}
+              storefunction={attribute.storefunction}
             />
           </View>
           );
@@ -45,7 +51,7 @@ function SetButtons( attribute: attribute ): any {
 }
 
 export default function SelectAttributes() {
-  const [selectedAttributes, setSelectedAttributes] = useState([]);
+  const [selectedFaceAttributes, setSelectedFaceAttributes] = useState<{[name: string]: string}> ({});
   const attributes_face = [
     {
       id: "faceType",
@@ -66,11 +72,17 @@ export default function SelectAttributes() {
 
   return (
   <View>
+    <View style={{display: "flex", flexDirection: "row", alignItems: "flex-start"}}>
+      <Text>성별ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</Text>
+      <TextInput maxLength={3} returnKeyType="done" keyboardType="number-pad"/>
+      <Text>나이ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</Text>
+
+    </View>
     <View>
     {attributes_face.map((element, index) => {
       return (
         <View key={index}>
-          <SetButtons key={index} name={element.name!} buttons={element.buttons!} />
+          <SetButtons key={index} name={element.name!} buttons={element.buttons!} storearea={selectedFaceAttributes} storefunction={setSelectedFaceAttributes} />
         </View>
       );
     })}

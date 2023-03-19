@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from './Themed';
 import { Pressable, StyleSheet } from "react-native";
 
@@ -9,6 +9,8 @@ type attribute = {
   handleClick: (idx: any) => any;
   elementIndex: number;
   content: string;
+  storearea: any;
+  storefunction: any;
 }
 
 export default function Attribute( attribute: attribute ) :React.ReactElement {
@@ -17,7 +19,9 @@ export default function Attribute( attribute: attribute ) :React.ReactElement {
       <Pressable
         onPress={(e) => {attribute.handleClick(attribute.elementIndex);
         console.log(`${attribute.name} - ${attribute.content} clicked`);
-        
+        const updatedStoreArea = { ...attribute.storearea };
+        updatedStoreArea[attribute.name.toString()] = attribute.content;
+        attribute.storefunction(updatedStoreArea);
         }}
         style={attribute.isSelected[attribute.elementIndex] ? styles.choose_button : styles.default_button}
         >
