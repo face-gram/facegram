@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from './Themed';
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, ScrollView, StyleSheet } from "react-native";
 
 type attribute = {
   key: string;
@@ -18,15 +18,16 @@ export default function Attribute( attribute: attribute ) :React.ReactElement {
     <View>
       <Pressable
         onPress={(e) => {attribute.handleClick(attribute.elementIndex);
-        console.log(`${attribute.name} - ${attribute.content} clicked`);
-        const updatedStoreArea = { ...attribute.storearea };
-        updatedStoreArea[attribute.name.toString()] = attribute.content;
-        attribute.storefunction(updatedStoreArea);
+          console.log(`${attribute.name} - ${attribute.content} clicked`);
+          const updatedStoreArea = { ...attribute.storearea };
+          updatedStoreArea[attribute.name.toString()] = attribute.content;
+          attribute.storefunction(updatedStoreArea);
         }}
         style={attribute.isSelected[attribute.elementIndex] ? styles.choose_button : styles.default_button}
-        >
+      >
         <Text style={attribute.isSelected[attribute.elementIndex] ? styles.chosen_button_inner_text : styles.default_button_inner_text}>{attribute.content}</Text>
       </Pressable>
+
     </View>
   );
 }
