@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 
 export default function TabHistoryScreen() {
@@ -9,7 +8,6 @@ export default function TabHistoryScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.total}>TOTAL  {history.length}</Text>
-      <EditScreenInfo path="app/(tabs)/history.tsx" />
     </View>
   );
 }
@@ -31,6 +29,8 @@ const styles = StyleSheet.create({
   total: {
     flex: 1,
     fontSize: 15,
-    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
+    marginTop: 12,
+    marginRight: 12,
   }
 });
