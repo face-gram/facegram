@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Text, View } from './Themed';
 import { Pressable, ScrollView, StyleSheet } from "react-native";
 
-type attribute = {
+type attributeType = {
   key: string;
+  id: string;
   name: string;
   isSelected: boolean[];
   handleClick: (idx: any) => any;
@@ -13,21 +14,20 @@ type attribute = {
   storefunction: any;
 }
 
-export default function Attribute( attribute: attribute ) :React.ReactElement {
+export default function Attribute( props: attributeType ) :React.ReactElement {
   return (
     <View>
       <Pressable
-        onPress={(e) => {attribute.handleClick(attribute.elementIndex);
-          console.log(`${attribute.name} - ${attribute.content} clicked`);
-          const updatedStoreArea = { ...attribute.storearea };
-          updatedStoreArea[attribute.name.toString()] = attribute.content;
-          attribute.storefunction(updatedStoreArea);
+        onPress={(e) => {props.handleClick(props.elementIndex);
+          console.log(`${props.id} - ${props.content} clicked`);
+          const updatedStoreArea = { ...props.storearea };
+          updatedStoreArea[props.id] = props.content;
+          props.storefunction(updatedStoreArea);
         }}
-        style={attribute.isSelected[attribute.elementIndex] ? styles.choose_button : styles.default_button}
+        style={props.isSelected[props.elementIndex] ? styles.choose_button : styles.default_button}
       >
-        <Text style={attribute.isSelected[attribute.elementIndex] ? styles.chosen_button_inner_text : styles.default_button_inner_text}>{attribute.content}</Text>
+        <Text style={props.isSelected[props.elementIndex] ? styles.chosen_button_inner_text : styles.default_button_inner_text}>{props.content}</Text>
       </Pressable>
-
     </View>
   );
 }
