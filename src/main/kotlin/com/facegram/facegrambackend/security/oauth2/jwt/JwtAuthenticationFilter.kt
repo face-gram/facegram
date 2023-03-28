@@ -40,6 +40,7 @@ constructor(
                 val context: SecurityContext = SecurityContextHolder.getContext()
                 context.authentication = authentication
                 log.info("인증정보 저장 => ",authentication.name)
+                println("인증필터 도착")
             }else{
                 log.debug("유효한 JWT 토큰이 없습니다.")
             }

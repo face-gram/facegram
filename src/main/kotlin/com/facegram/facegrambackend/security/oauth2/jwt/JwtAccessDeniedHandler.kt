@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class JwtAccessDeniedHandler():AccessDeniedHandler {
+class JwtAccessDeniedHandler:AccessDeniedHandler {
     override fun handle(
         request: HttpServletRequest?,
         response: HttpServletResponse?,
         accessDeniedException: AccessDeniedException?
     ) {
-        //        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,authException.localizedMessage)
-        throw NoAuthorizationException("권한이 없는 사용자입니다.")
+        response!!.sendError(HttpServletResponse.SC_UNAUTHORIZED,"권한이 없는 사용자입니다.")
     }
 }
