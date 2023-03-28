@@ -20,7 +20,8 @@ spring:
     gcp:
       storage:
         credentials:
-          location=:src/main/resources/keys/key.json
+          location:
+            classpath: keys/key.json
 
 app:
   auth:
@@ -30,7 +31,7 @@ app:
   oauth2:
     authorizedRedirectUri: "http://localhost:3000/oauth2/redirect"
   gcp:
-    storageName: "gdsc-solution-challenge-bucket"
+    storageName: "facegram-bucket"
 
 
 
