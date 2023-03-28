@@ -30,7 +30,7 @@ class OAuth2AuthenticationSuccessHandler(
     private val tokenProvider: JwtTokenProvider,
     private val cookieAuthorizationRequestRepository: CookieAuthorizationRequestRepository
 ): SimpleUrlAuthenticationSuccessHandler() {
-    val log: Logger = LoggerFactory.getLogger(JwtTokenProvider::class.java)
+    val log: Logger = LoggerFactory.getLogger(OAuth2AuthenticationSuccessHandler::class.java)
 
     override fun onAuthenticationSuccess(
         request: HttpServletRequest,
@@ -54,6 +54,7 @@ class OAuth2AuthenticationSuccessHandler(
                                               response: HttpServletResponse?,
                                               authentication: Authentication?)
     :String{
+        println("성공 핸들러 도착")
         if (request!=null){
             val redirectUri: Optional<String> = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map { cookie -> cookie.value }

@@ -111,7 +111,9 @@ class JwtTokenProvider(
         val authorities: Collection<GrantedAuthority> = claims[AUTHORITIES_KEY].toString().split(",")
             .map { SimpleGrantedAuthority(it) }
             .toList()
-        val principal = CustomUserDetails(java.lang.Long.valueOf(claims.subject), "", authorities)
+        val principal = CustomUserDetails(java.lang.Long.valueOf(claims.subject), "test", authorities)
+        log.info("CustomUserDetials = {} {}",principal.name,principal.username)
+        log.info("principal 확인$principal")
         return UsernamePasswordAuthenticationToken(principal, "", authorities)
     }
 

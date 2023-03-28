@@ -16,8 +16,8 @@ constructor(): AuthenticationEntryPoint
         response: HttpServletResponse?,
         authException: AuthenticationException?
     ) {
-        throw UnAuthorizedException("사용자 인증 혹은 로그인이 없이 요청하셨습니다.")
-//        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,authException.localizedMessage)
+//        throw UnAuthorizedException("사용자 인증 혹은 로그인이 없이 요청하셨습니다.")
+        response!!.sendError(HttpServletResponse.SC_UNAUTHORIZED,"사용자 인증 혹은 로그인이 없이 요청하셨습니다.")
     }
 
 }
