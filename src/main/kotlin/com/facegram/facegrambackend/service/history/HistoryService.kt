@@ -11,6 +11,7 @@ import com.facegram.facegrambackend.dto.response.history.analysishistory.analysi
 import com.facegram.facegrambackend.dto.response.history.userhistory.UserHistoryAnalysisDto
 import com.facegram.facegrambackend.security.CustomUserDetails
 import com.facegram.facegrambackend.service.responseentity.ResponseEntityService
+import lombok.extern.slf4j.Slf4j
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.IllegalArgumentException
 
+@Slf4j
 @Service
 class HistoryService
     constructor(
@@ -31,12 +33,15 @@ class HistoryService
         @Transactional
         fun historySearchByUser(userId: Long)
         : MutableList<UserHistoryAnalysisDto>{
+            println("history 서치")
             val history: MutableList<UserHistoryAnalysisDto> = mutableListOf()
             val findUser: Optional<User> = userRepository.findById(userId)
             if(findUser.isEmpty){
                 throw IllegalArgumentException("유저를 찾지 못했습니다.")
             }
-            val userAnalysisHistory: List<Analysis> = analysisRepository.findAllByUser(findUser)
+            println("유저 서치")
+            val userAnalysisHistory: List<Analysis> = analysisRepository.findAllByUser(findUser.get())
+            println("history 서치")
             userAnalysisHistory.forEach {
                     analysis ->
                 history.add(
@@ -46,6 +51,8 @@ class HistoryService
                     analysis.createdAt)
                 )
             }
+            println(history)
+            println("히스토리 리턴")
             return history
         }
 
