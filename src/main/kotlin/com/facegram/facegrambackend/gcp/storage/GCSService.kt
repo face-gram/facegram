@@ -21,13 +21,14 @@ class GCSService constructor(
         val ext = image.contentType // 파일의 형식, 확장자
 
         // Cloud에 이미지 업로드
-        val blobInfo:BlobInfo = storage.create(
+//        val blobInfo:BlobInfo =
+                storage.create(
             BlobInfo.newBuilder(bucketName, uuid)
                 .setContentType(ext)
                 .build(),
             image.inputStream
         )
-        return "https://storage.googleapis.com/${bucketName}/${uuid}.${ext}"
+        return "https://storage.googleapis.com/${bucketName}/${uuid}"//.${ext}"
     }
     //클라가 저장했던 이미지를 다시 보내 달라할 땐 사실 굉장히 간단하고 쉽습니다!
     //저희가 DB에 String 타입으로 저장해둔 UUID값을 보내주기만 하면 된답니당 ㅎㅎ

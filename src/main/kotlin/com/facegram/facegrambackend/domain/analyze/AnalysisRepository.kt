@@ -10,7 +10,7 @@ interface AnalysisRepository: JpaRepository<Analysis,Long>{
     fun findAllById(id: Long)
 
 
-    fun findAllByUser(user: Optional<User>): List<Analysis>
+    fun findAllByUser(user:User): List<Analysis>
 
     fun deleteAnalysisById(id: Long)
 }

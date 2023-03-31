@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.math.log
 
-
-@Service
+@Slf4j
+@RestController
 @RequestMapping("/history")
 class HistoryController constructor(
     private val historyService: HistoryService,
@@ -26,7 +26,9 @@ class HistoryController constructor(
     ): MutableList<UserHistoryAnalysisDto>  {
         println("컨트롤러 도착")
         val userId: Long = user.name.toLong()
-        return historyService.historySearchByUser(userId)
+        val historySearchByUser = historyService.historySearchByUser(userId)
+        println("history 배열 가져옴")
+        return historySearchByUser
     }
 
     @DeleteMapping("/{id}")

@@ -22,6 +22,8 @@ import com.facegram.facegrambackend.domain.user.UserRepository
 import com.facegram.facegrambackend.domain.wrinkle.Wrinkle
 import com.facegram.facegrambackend.domain.wrinkle.WrinkleRepository
 import com.facegram.facegrambackend.dto.request.analysis.AnalysisLowCreateRequestDto
+import com.facegram.facegrambackend.dto.request.analysis.description.DescriptionDto
+import com.facegram.facegrambackend.dto.request.analysis.info.InfoDto
 import com.facegram.facegrambackend.dto.response.Message
 import com.facegram.facegrambackend.dto.response.ResponseType
 import com.facegram.facegrambackend.gcp.storage.GCSService
@@ -32,6 +34,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
+import java.lang.IllegalArgumentException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -64,10 +68,13 @@ class AnalysisService constructor(
 
     @Transactional
     fun createAnalysis(
-        analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
-        user: CustomUserDetails,
-        request: HttpServletRequest,
-        response: HttpServletResponse
+            analysisLowCreateRequestDto: AnalysisLowCreateRequestDto,
+//            image: MultipartFile,
+//            info: InfoDto,
+//            image: MultipartFile,
+            user: CustomUserDetails,
+            request: HttpServletRequest,
+            response: HttpServletResponse
     )
     :ResponseEntity<Any>{
         val face = faceRepository.save(createFace(analysisLowCreateRequestDto))
@@ -80,7 +87,12 @@ class AnalysisService constructor(
 //        val characteristic =
         val feature = featureRepository.save(createFeature(analysisLowCreateRequestDto))
         val impression = impressionRepository.save(createImpression(analysisLowCreateRequestDto))
-        val findUser = userRepository.findByUsername(user.username)?: throw IllegalArgumentException("없는 유저입니다.")
+        println("다른 것들 생성 완료")
+        val findUser = userRepository.findById(user.name.toLong())
+        if(findUser.isEmpty){
+            throw IllegalArgumentException("유저를 찾을 수 없습니다.")
+        }
+        println("유저 생성 완료")
         val imageUrl = gcsService.uploadFileToGCS(analysisLowCreateRequestDto.image)
 
         numIncrease()
@@ -88,7 +100,7 @@ class AnalysisService constructor(
         val analysis = Analysis.newInstance(
             null,
             "${user.username}님이 생성한 몽타주 $analysisNum",
-            findUser,
+            findUser.get(),
             face,
             hairstyle,
             eyebrows,
@@ -109,9 +121,6 @@ class AnalysisService constructor(
         analysisRepository.save(analysis)
 
         val message = Message(ResponseType.OK,"성공입니다.")
-
-        authService.refreshToken(response,request,
-            request.getHeader("Authorization"))
 
         return responseEntityService.createResponseEntity(message,HttpStatus.OK)
     }
