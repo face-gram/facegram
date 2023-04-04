@@ -61,3 +61,8 @@ Number 11, 16 from 17 GOALS
 - A.I:  ***Google Cloud, Pytorch, Colab, ML***
 
 
+## How to run Code
+- Frontend:  Be sure to install node js and react native settings before starting.
+```npm start``` will run the application.
+- Backend: First, you have to run Mysql database using dockerfile inside source code. After then you can run Spring Framework code using some IDEs like IntelliJ.  
+- A.I: Run the notebook file named ***"test.ipynb"*** in the order of its cells, one after the other.
