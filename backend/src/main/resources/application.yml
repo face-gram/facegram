@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/facegram?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: false
+        default_batch_fetch_size: 1000
+        globally_quoted_identifiers: true
+  profiles:
+    include: oauth, cloud
+
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location:
+            classpath: keys/key.json
+
+app:
+  auth:
+    token:
+      secret-key: "GDSCSOLUTIONCHALLENGEFACEGRAMJOHNANDJASONPLEASEHELPIMINPAINSTOPTHISMADDNESS"
+      refresh-cookie-key: "refresh"
+  oauth2:
+    authorizedRedirectUri: "http://localhost:3000/oauth2/redirect"
+  gcp:
+    storageName: "facegram-bucket"
+
+
+
+
