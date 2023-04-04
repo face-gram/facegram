@@ -22,6 +22,7 @@ export default function Attribute( props: attributeType ) :React.ReactElement {
           console.log(`${props.id} - ${props.content} clicked`);
           const updatedStoreArea = { ...props.storearea };
           updatedStoreArea[props.id] = props.content;
+          updatedStoreArea["description"] = "";
           props.storefunction(updatedStoreArea);
         }}
         style={props.isSelected[props.elementIndex] ? styles.choose_button : styles.default_button}

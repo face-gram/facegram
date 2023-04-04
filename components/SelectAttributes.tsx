@@ -14,10 +14,14 @@ import ATTR_IMPRESSION from "./ATTR_IMPRESSION";
 
 import Attribute from "./Attribute";
 import axios from "axios";
+import FormData from "form-data";
 
 const categories = ["얼굴", "헤어", "눈썹", "눈", "코", "입", "목", "주름", "특징", "인상"];
 const categories_const = [ATTR_FACE, ATTR_HAIR, ATTR_EYEBROWS, ATTR_EYES, ATTR_NOSE, ATTR_MOUTH, ATTR_NECK,
                           ATTR_WRINKLE, ATTR_FEATURE, ATTR_IMPRESSION];
+
+// token website
+// http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect
 
 type setButtonsType = {
   key: string;
@@ -42,12 +46,7 @@ function SetButtons( attribute: setButtonsType ): any {
     setButton(newarr);
   }
 
-  // debug
-  console.log(button);
-  console.log("**buttons**:", buttons);
-  console.log(levels);
-
-  if (attribute.currentlevel >= attribute.level && attribute.level != 0) {
+  if (attribute.currentlevel >= attribute.level) {
     return (
       <View style={styles.attribute_buttons}>
         <Text>{attribute.name}</Text>
@@ -77,7 +76,7 @@ function SetButtons( attribute: setButtonsType ): any {
 }
 
 axios.interceptors.request.use(function (config) {
-  console.log('Request:', config.data);
+  console.log('axios log Request:', JSON.stringify(config["data"]));
   return config;
 }, function (error) {
   return Promise.reject(error);
@@ -96,62 +95,100 @@ export default function SelectAttributes() {
   const [selectedWrinkleAttributes, setSelectedWrinkleAttributes] = useState<{[name: string]: string}> ({});
   const [selectedFeatureAttributes, setSelectedFeatureAttributes] = useState<{[name: string]: string}> ({});
   const [selectedImpressionAttributes, setSelectedImpressionAttributes] = useState<{[name: string]: string}> ({});
+  const selectedAttributes = [selectedFaceAttributes, selectedHairAttributes, selectedEyebrowsAttributes, selectedEyesAttributes,
+    selectedNoseAttributes, selectedMouthAttributes, selectedNeckAttributes, selectedWrinkleAttributes, selectedFeatureAttributes,
+    selectedImpressionAttributes];
+  const setSelectedAttributes = [setSelectedFaceAttributes, setSelectedHairAttributes, setSelectedEyebrowsAttributes, setSelectedEyesAttributes,
+    setSelectedNoseAttributes, setSelectedMouthAttributes, setSelectedNeckAttributes, setSelectedWrinkleAttributes, setSelectedFeatureAttributes,
+    setSelectedImpressionAttributes];
   const [level, setLevel] = useState(1);
+  const category_iter = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [imageUri, setImageUri] = useState("file:///Users/jinjae/Documents/Profile.png");
+
+  useEffect(() => {
+    category_iter.map((e, i) => {
+      const updatedStoreArea = { ...selectedAttributes[e] };
+      updatedStoreArea["description"] = "";
+      setSelectedAttributes[e](updatedStoreArea)
+    })
+  }, []);
 
   const sendSelection = () => {
-    console.log("sent--", {
-      "info": [
-        {
-          "age": enteredAge,
-          "gender": selectedSex === "남성" ? "M" : "F",
-        }
-      ],
-      "description": [
-        {
-          "face": selectedFaceAttributes,
-          "hairstyle": selectedHairAttributes,
-          "eyebrows": selectedEyebrowsAttributes,
-          "eyes": selectedEyesAttributes,
-          "nose": selectedNoseAttributes,
-          "mouth": selectedMouthAttributes,
-          "neck": selectedNeckAttributes,
-          "wrinkle": selectedWrinkleAttributes,
-          "feature": selectedFeatureAttributes,
-          "impression": selectedImpressionAttributes,
-        }
-      ],
-    }
-    );
+    uploadImage(imageUri);
     setLevel(level + 1 > 3 ? 1 : level + 1);
+  }
 
-    axios.post('http://localhost:8001', {
-      "info": [
-        {
-          "age": enteredAge,
-          "gender": selectedSex === "남성" ? "M" : "F",
-        }
-      ],
-      "description": [
-        {
-          "face": selectedFaceAttributes,
-          "hairstyle": selectedHairAttributes,
-          "eyebrows": selectedEyebrowsAttributes,
-          "eyes": selectedEyesAttributes,
-          "nose": selectedNoseAttributes,
-          "mouth": selectedMouthAttributes,
-          "neck": selectedNeckAttributes,
-          "wrinkle": selectedWrinkleAttributes,
-          "feature": selectedFeatureAttributes,
-          "impression": selectedImpressionAttributes,
-        }
-      ],
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const uploadImage = async (imageUri: string) => {
+
+    const formDataJSON = new FormData();
+
+
+    // Append the image file to the form data object
+    // const infoJSON =
+    //   {
+    //     "age": enteredAge,
+    //     "gender": selectedSex === "남성" ? "M" : "F"
+    //   };
+    let infoJSON: any = {};
+    infoJSON["age"] = enteredAge;
+    infoJSON["gender"] = selectedSex === "남성" ? "M" : "F";
+
+    console.log(infoJSON);
+
+    const descriptionJSON =
+      {
+        "face": selectedFaceAttributes,
+        "hairstyle": selectedHairAttributes,
+        "eyebrows": selectedEyebrowsAttributes,
+        "eyes": selectedEyesAttributes,
+        "nose": selectedNoseAttributes,
+        "mouth": selectedMouthAttributes,
+        // "neck": selectedNeckAttributes,
+        "wrinkle": selectedWrinkleAttributes,
+        "feature": selectedFeatureAttributes,
+        "impression": selectedImpressionAttributes
+      };
+
+      formDataJSON.append('info', new Blob([JSON.stringify(infoJSON)], {type: "application/json"}));
+      // const stringifiedInfo = JSON.stringify(infoJSON);
+      formDataJSON.append('info', infoJSON, {
+        contentType: "application/json"
+      })
+      formDataJSON.append('description', descriptionJSON, {
+        contentType: "application/json"
+      })
+      formDataJSON.append('description', new Blob([JSON.stringify(descriptionJSON)], {type: "application/json"}));
+      formDataJSON.append("image", {
+        uri: imageUri,
+        type: "image/png",
+        name: "Profile.png"
+      });
+
+      // console.log("JSON here:", JSON.stringify(formDataJSON));
+
+      // const raw = {"test": "hello"};
+
+      // const testFormData = new FormData();
+      // testFormData.append("test", {"test" : "hello"});
+      // testFormData.append("image", {
+      //   uri: imageUri,
+      //   type: "image/png",
+      //   name: "Profile.png"
+      // });
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8080/face/',
+      formDataJSON,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer $HIDDEN_TOKEN',
+        },
+      },);
+      console.log('axios success:', response.data);
+    } catch (error) {
+      console.log('axios error:', error);
+    }
   }
 
   return (
@@ -177,45 +214,31 @@ export default function SelectAttributes() {
         </View>
         {/* View for attributes */}
         <View>
-          <Text style={styles.attribute_category}>{categories[0]}</Text>
-          <View>
-            {categories_const[0].map((element, index) => {
-              return (
-                <View key={index}>
-                  <SetButtons
-                    key={element.id}
-                    id={element.id}
-                    name={element.name!}
-                    buttons={element.buttons!}
-                    level={element.level}
-                    currentlevel={level}
-                    storearea={selectedFaceAttributes}
-                    storefunction={setSelectedFaceAttributes}
-                  />
-                </View>
-              );
-            })}
+          {category_iter.map((elmt, indx) => {
+            return(
+              <View key={indx}>
+              <Text style={styles.attribute_category}>{categories[elmt]}</Text>
+              {categories_const[elmt].map((element, index) => {
+                return (
+                  <View key={index}>
+                    <SetButtons
+                      key={element.id}
+                      id={element.id}
+                      name={element.name!}
+                      buttons={element.buttons!}
+                      level={element.level}
+                      currentlevel={level}
+                      storearea={selectedAttributes[elmt]}
+                      storefunction={setSelectedAttributes[elmt]}
+                    />
+                  </View>
+                );
+              })}
+            </View>
+            );
+          })
+          }
           </View>
-          <Text style={styles.attribute_category}>{categories[1]}</Text>
-          <View>
-            {categories_const[1].map((element, index) => {
-              return (
-                <View key={index}>
-                  <SetButtons
-                    key={element.id}
-                    id={element.id}
-                    name={element.name!}
-                    buttons={element.buttons!}
-                    level={element.level}
-                    currentlevel={level}
-                    storearea={selectedHairAttributes}
-                    storefunction={setSelectedHairAttributes}
-                  />
-                </View>
-              );
-            })}
-          </View>
-        </View>
       </ScrollView>
     </View>
   );

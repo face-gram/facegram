@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Image } from 'react-native';
 
 import { Text, View } from '../../components/Themed';
 import FaceUndefinedSvg from '../../assets/images/face-undefined';
@@ -9,9 +9,9 @@ export default function TabAnalyzeScreen() {
     <View style={styles.container}>
       <FaceUndefinedSvg />
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      {/* <ScrollView> */}
+      <ScrollView>
         <SelectAttributes />
-      {/* </ScrollView> */}
+      </ScrollView>
     </View>
   );
 }
