@@ -68,3 +68,9 @@ Number 11, 16 from 17 GOALS
 - Backend: First, you have to run Mysql database using dockerfile inside source code.  
            After then you can run Spring Framework code using some IDEs like IntelliJ.  
 - A.I: Run the notebook file named ***"test.ipynb"*** in the order of its cells, one after the other.
+
+## Pesetation Video
+
+<img width="671" alt="스크린샷 2023-04-05 오후 4 26 07" src="https://user-images.githubusercontent.com/79959576/230010857-e9a82c67-b967-40fe-9cb1-6d0b882b9184.png">
+
+[***Video Link***](https://www.youtube.com/watch?v=xU9mHc9CN-M&t=1s)
