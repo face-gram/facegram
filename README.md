@@ -71,8 +71,9 @@ Number 11, 16 from 17 GOALS
 
 <br/>
 
-## Pesetation Video
+## Presetation Video
 
-<img width="671" alt="스크린샷 2023-04-05 오후 4 26 07" src="https://user-images.githubusercontent.com/79959576/230010857-e9a82c67-b967-40fe-9cb1-6d0b882b9184.png">
-
+<img width='700' src="https://user-images.githubusercontent.com/75362328/230445740-628f9cc5-8303-4b32-905d-31a05d2f727b.png">
+     
 [***Video Link***](https://www.youtube.com/watch?v=xU9mHc9CN-M&t=1s)
+
